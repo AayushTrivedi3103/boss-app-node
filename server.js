@@ -44,9 +44,7 @@ app.post("/api/register", async (req, res) => {
             last_name,
             mobile,
             email,
-            password,
-            current_location,
-            native_location
+            password
         } = req.body;
 
         const response = await axios.post(
@@ -56,9 +54,7 @@ app.post("/api/register", async (req, res) => {
                 last_name: last_name,
                 mobile: mobile,
                 email: email,
-                password: password,
-                current_location: current_location,
-                native_location: native_location
+                password: password
             }
         );
 
@@ -134,6 +130,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
