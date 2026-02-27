@@ -50,7 +50,7 @@ app.post("/api/register", async (req, res) => {
         } = req.body;
 
         const response = await axios.post(
-            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/register",
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/signup.php",
             {
                 first_name: first_name,
                 last_name: last_name,
@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) => {
         } = req.body;
 
         const response = await axios.post(
-            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/login",
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/login.php",
             {
                 email: email,
                 password: password
@@ -134,6 +134,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
