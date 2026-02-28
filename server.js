@@ -130,10 +130,45 @@ app.post("/api/edit-profile", async (req, res) => {
     }
 });
 
+// GET Categories
+app.get("/api/categories", async (req, res) => {
+    try {
+        const response = await axios.get(
+            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/categories/list.php"
+        );
+
+        res.status(response.status).json(response.data);
+
+    } catch (error) {
+        res.status(error.response?.status || 500).json({
+            message: "Error fetching users",
+            error: error.response?.data || error.message
+        });
+    }
+});
+
+// GET Categories
+app.get("/api/sub-categories", async (req, res) => {
+    try {
+        const response = await axios.get(
+            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/subcategories/list.php"
+        );
+
+        res.status(response.status).json(response.data);
+
+    } catch (error) {
+        res.status(error.response?.status || 500).json({
+            message: "Error fetching users",
+            error: error.response?.data || error.message
+        });
+    }
+});
+
 app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
