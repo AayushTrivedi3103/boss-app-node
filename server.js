@@ -103,7 +103,7 @@ app.post("/api/edit-profile", async (req, res) => {
             id,
             first_name,
             last_name,
-            phone,
+            mobile,
             email,
             profile_image
         } = req.body;
@@ -114,7 +114,7 @@ app.post("/api/edit-profile", async (req, res) => {
                 id: id,
                 first_name: first_name,
                 last_name: last_name,
-                phone: phone,
+                mobile: mobile,
                 email: email,
                 profile_image: null
             }
@@ -168,6 +168,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
