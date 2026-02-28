@@ -134,7 +134,7 @@ app.post("/api/edit-profile", async (req, res) => {
 app.get("/api/categories", async (req, res) => {
     try {
         const response = await axios.get(
-            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/categories/list.php"
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/categories/list.php"
         );
 
         res.status(response.status).json(response.data);
@@ -151,7 +151,7 @@ app.get("/api/categories", async (req, res) => {
 app.get("/api/sub-categories", async (req, res) => {
     try {
         const response = await axios.get(
-            "https://postkiyaapp.shivanshastrology.in/newproject/public/api/subcategories/list.php"
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/subcategories/list.php"
         );
 
         res.status(response.status).json(response.data);
@@ -168,6 +168,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
