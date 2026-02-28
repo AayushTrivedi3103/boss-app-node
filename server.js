@@ -109,7 +109,7 @@ app.post("/api/edit-profile", async (req, res) => {
         } = req.body;
 
         const response = await axios.post(
-            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/edit-profile",
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/edit-profile.php",
             {
                 id: id,
                 first_name: first_name,
@@ -168,6 +168,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
