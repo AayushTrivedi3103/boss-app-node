@@ -164,10 +164,33 @@ app.get("/api/sub-categories", async (req, res) => {
     }
 });
 
+app.post("/api/forgot-password", async (req, res) => {
+    try {
+        const {
+            email
+        } = req.body;
+
+        const response = await axios.post(
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/forgot_password.php",
+            {
+                email: email               
+            }
+        );
+
+        res.status(response.status).json(response.data);
+
+    } catch (error) {
+        res.status(error.response?.status || 500).json({
+            message: "Error calling Laravel API",
+            error: error.response?.data || error.message
+        });
+    }
+});
 app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
