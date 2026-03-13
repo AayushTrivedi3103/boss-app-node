@@ -101,6 +101,7 @@ app.post("/api/address-update", async (req, res) => {
     try {
         const {
             id,
+            email,
             latitude,
             longitude
         } = req.body;
@@ -109,6 +110,7 @@ app.post("/api/address-update", async (req, res) => {
             "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/address_update.php",
             {
                 id: id,
+                email:email,
                 latitude: latitude,
                 longitude: longitude
             }
@@ -218,6 +220,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
