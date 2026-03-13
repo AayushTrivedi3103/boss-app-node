@@ -103,7 +103,9 @@ app.post("/api/address-update", async (req, res) => {
             id,
             email,
             latitude,
-            longitude
+            longitude,
+            current_location,
+            native_location
         } = req.body;
 
         const response = await axios.post(
@@ -112,7 +114,9 @@ app.post("/api/address-update", async (req, res) => {
                 id: id,
                 email:email,
                 latitude: latitude,
-                longitude: longitude
+                longitude: longitude,
+                current_location: current_location,
+                native_location: native_location
             }
         );
 
@@ -220,6 +224,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
