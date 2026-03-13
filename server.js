@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const FormData = require("form-data");
+const fs = require("fs");
 
 const app = express();
 // app.use(cors());
@@ -130,39 +132,73 @@ app.post("/api/address-update", async (req, res) => {
     }
 });
 
+// app.post("/api/edit-profile", async (req, res) => {
+//     try {
+//         const {
+//             id,
+//             first_name,
+//             last_name,
+//             mobile,
+//             email,
+//             profile_image
+//         } = req.body;
+
+//         const response = await axios.post(
+//             "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/edit_profile.php",
+//             {
+//                 id: id,
+//                 first_name: first_name,
+//                 last_name: last_name,
+//                 mobile: mobile,
+//                 email: email,
+//                 profile_image: profile_image
+//             }
+//         );
+
+//         res.status(response.status).json(response.data);
+
+//     } catch (error) {
+//         res.status(error.response?.status || 500).json({
+//             message: "Error calling Laravel API",
+//             error: error.response?.data || error.message
+//         });
+//     }
+// });
 app.post("/api/edit-profile", async (req, res) => {
     try {
-        const {
-            id,
-            first_name,
-            last_name,
-            mobile,
-            email,
-            profile_image
-        } = req.body;
+
+        const form = new FormData();
+
+        form.append("id", req.body.id);
+        form.append("first_name", req.body.first_name);
+        form.append("last_name", req.body.last_name);
+        form.append("mobile", req.body.mobile);
+        form.append("email", req.body.email);
+
+        // attach image file
+        if (req.file) {
+            form.append("profile_image", fs.createReadStream(req.file.path));
+        }
 
         const response = await axios.post(
             "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/edit_profile.php",
+            form,
             {
-                id: id,
-                first_name: first_name,
-                last_name: last_name,
-                mobile: mobile,
-                email: email,
-                profile_image: profile_image
+                headers: form.getHeaders()
             }
         );
 
-        res.status(response.status).json(response.data);
+        res.json(response.data);
 
     } catch (error) {
-        res.status(error.response?.status || 500).json({
-            message: "Error calling Laravel API",
-            error: error.response?.data || error.message
+
+        res.status(500).json({
+            message: "Error calling PHP API",
+            error: error.message
         });
+
     }
 });
-
 // GET Categories
 app.get("/api/categories", async (req, res) => {
     try {
@@ -224,6 +260,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
