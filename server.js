@@ -164,7 +164,12 @@ app.post("/api/address-update", async (req, res) => {
 //         });
 //     }
 // });
+const upload = multer({ dest: "uploads/" });
 app.post("/api/edit-profile", async (req, res) => {
+    try {
+
+        const form = new FormData();
+app.post("/api/edit-profile", upload.single("profile_image"), async (req, res) => {
     try {
 
         const form = new FormData();
@@ -175,7 +180,6 @@ app.post("/api/edit-profile", async (req, res) => {
         form.append("mobile", req.body.mobile);
         form.append("email", req.body.email);
 
-        // attach image file
         if (req.file) {
             form.append("profile_image", fs.createReadStream(req.file.path));
         }
@@ -183,9 +187,7 @@ app.post("/api/edit-profile", async (req, res) => {
         const response = await axios.post(
             "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/edit_profile.php",
             form,
-            {
-                headers: form.getHeaders()
-            }
+            { headers: form.getHeaders() }
         );
 
         res.json(response.data);
