@@ -164,11 +164,10 @@ app.post("/api/address-update", async (req, res) => {
 //         });
 //     }
 // });
-const upload = multer({ dest: "uploads/" });
-app.post("/api/edit-profile", async (req, res) => {
-    try {
+const multer = require("multer");
 
-        const form = new FormData();
+const upload = multer({ dest: "uploads/" });
+
 app.post("/api/edit-profile", upload.single("profile_image"), async (req, res) => {
     try {
 
