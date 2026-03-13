@@ -97,6 +97,33 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+app.post("/api/address-update", async (req, res) => {
+    try {
+        const {
+            id,
+            latitude,
+            longitude
+        } = req.body;
+
+        const response = await axios.post(
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/auth/address_update.php",
+            {
+                id: id,
+                latitude: latitude,
+                longitude: longitude
+            }
+        );
+
+        res.status(response.status).json(response.data);
+
+    } catch (error) {
+        res.status(error.response?.status || 500).json({
+            message: "Error calling Laravel API",
+            error: error.response?.data || error.message
+        });
+    }
+});
+
 app.post("/api/edit-profile", async (req, res) => {
     try {
         const {
@@ -191,6 +218,7 @@ app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
 });
+
 
 
 
