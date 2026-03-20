@@ -260,15 +260,33 @@ app.get("/api/forgot-password", async (req, res) => {
 
 app.get("/api/products-list", async (req, res) => {
     try {
+        // Get params from frontend
+        const { category_id, subcategory_id } = req.query;
+
+        // Validate (both required)
+        if (!category_id || !subcategory_id) {
+            return res.status(400).json({
+                status: false,
+                message: "category_id and subcategory_id are required"
+            });
+        }
+
+        // Call PHP API with params
         const response = await axios.get(
-            "https://postkiyaapp.shivanshastrology.in/newproject/api/products/list.php"
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/products/list.php",
+            {
+                params: {
+                    category_id,
+                    subcategory_id
+                }
+            }
         );
 
         res.status(response.status).json(response.data);
 
     } catch (error) {
         res.status(error.response?.status || 500).json({
-            message: "Error fetching users",
+            message: "Error fetching products",
             error: error.response?.data || error.message
         });
     }
