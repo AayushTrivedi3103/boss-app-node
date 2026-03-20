@@ -257,6 +257,22 @@ app.get("/api/forgot-password", async (req, res) => {
         });
     }
 });
+
+app.get("/api/products-list", async (req, res) => {
+    try {
+        const response = await axios.get(
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/products/list.php"
+        );
+
+        res.status(response.status).json(response.data);
+
+    } catch (error) {
+        res.status(error.response?.status || 500).json({
+            message: "Error fetching users",
+            error: error.response?.data || error.message
+        });
+    }
+});
 app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
