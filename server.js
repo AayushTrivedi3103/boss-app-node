@@ -291,6 +291,47 @@ app.get("/api/products-list", async (req, res) => {
         });
     }
 });
+app.post("/api/add-product", upload.single("main_image"), async (req, res) => {
+    try {
+
+        const form = new FormData();
+
+        // Basic fields
+        form.append("user_id", req.body.user_id);
+        form.append("category_id", req.body.category_id);
+        form.append("subcategory_id", req.body.subcategory_id);
+        form.append("title", req.body.title);
+        form.append("description", req.body.description);
+        form.append("price", req.body.price);
+        form.append("stock", req.body.stock);
+
+        // Image
+        if (req.file) {
+            form.append("main_image", fs.createReadStream(req.file.path));
+        }
+
+        // Attributes (IMPORTANT 🔥)
+        if (req.body.attributes) {
+            form.append("attributes", req.body.attributes); 
+            // send as JSON string
+        }
+
+        // Call PHP API
+        const response = await axios.post(
+            "https://postkiyaapp.shivanshastrology.in/newproject/api/products/add.php",
+            form,
+            { headers: form.getHeaders() }
+        );
+
+        res.json(response.data);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Error calling PHP API",
+            error: error.response?.data || error.message
+        });
+    }
+});
 app.listen(5000, "0.0.0.0", () => {
     console.log("Server running");
 
